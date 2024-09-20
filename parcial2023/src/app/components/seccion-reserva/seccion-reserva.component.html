@@ -1,0 +1,160 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header text-center">
+      <h3>Booking Detail</h3>
+    </div>
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h5>Your flight</h5>
+          <img [src]="oVueloView[0].img" class="img-fluid" style="max-width: 350px;">
+          <p>{{oVueloView[0].origen}} to {{oVueloView[0].destino}}</p>
+          <p>{{oVueloView[0].hora}}</p>
+        </div>
+        <div class="col-md-6">
+          <h5>Your room</h5>
+          <img [src]="oHabitacionView[0].img" class="img-fluid">
+          <p>{{oHabitacionView[0].tipo}}</p>
+          <div class="row">
+            <p><span class="{{oHabitacionView[0].icon1}} col-md-2"></span></p>
+            <p><span class="{{oHabitacionView[0].icon2}} col-md-2"></span></p>
+            <p><span class="{{oHabitacionView[0].icon3}} col-md-2"></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="card container">
+    <br>
+    <h5>Your information here</h5>
+    <br>
+    <form (ngSubmit)="guardarReserva()" #form="ngForm">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="firstName">First Name</label>
+          <input type="text" class="form-control" name="firstName" [(ngModel)]="FirstName" id="firstName" placeholder="First Name" maxlength="50" required
+          #Nombre="ngModel">
+          @if (Nombre.invalid && Nombre.touched)
+          {
+            <span class="text-danger">El nombre es requerido</span>
+          }
+        </div>
+
+
+        <div class="form-group col-md-6">
+          <label for="lastName">Last Name</label>
+          <input type="text" class="form-control" name="lastName" [(ngModel)]="LastName" id="lastName" placeholder="Last Name" maxlength="50" required
+          #Apellido="ngModel">
+          @if (Apellido.invalid && Apellido.touched)
+          {
+            <span class="text-danger">El apellido es requerido</span>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="identificationType">Identification Type</label>
+          <select id="identificationType" name="identificationType" [(ngModel)]="IdentificationTipe" class="form-control" required>
+            <option value="" disabled selected>Choose...</option>
+            <option value="DNI">DNI</option>
+            <option value="Passport">Passport</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="identificationNumber">Identification Number</label>
+          <input type="number" class="form-control" name="identificationNumber" [(ngModel)]="IdentificationNumber" id="identificationNumber" placeholder="ID Number" required
+          #IdentNum="ngModel">
+          @if (IdentNum.invalid && IdentNum.touched)
+          {
+            <span class="text-danger">El número de identificación es requerido</span>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="address">Address</label>
+          <input type="text" class="form-control" name="address" [(ngModel)]="Adress" id="address" placeholder="1234 Main St" maxlength="500" required
+          #Direc="ngModel">
+          @if (Direc.invalid && Direc.touched)
+          {
+            <span class="text-danger">La dirección es requerida</span>
+          }
+        </div>
+        <div class="form-group col-md-4">
+          <label for="country">Country</label>
+          <input type="text" class="form-control" name="country" [(ngModel)]="State" id="country" maxlength="100" required
+          #Countr="ngModel">
+          @if (Countr.invalid && Countr.touched)
+          {
+            <span class="text-danger">El país es requerido</span>
+          }
+        </div>
+        <div class="form-group col-md-4">
+          <label for="city">City</label>
+          <input type="text" class="form-control" name="city" [(ngModel)]="City" id="city" maxlength="100" required
+          #Ciudad="ngModel">
+          @if (Ciudad.invalid && Ciudad.touched)
+          {
+            <span class="text-danger">La ciudad es requerida</span>
+          }
+        </div>
+      </div>
+      
+      <hr>
+      <h5>Your card information</h5>
+      <br>
+
+      <div class="row">
+
+        <div class="form-group col-md-6">
+          <label for="cardName">Name on card</label>
+          <input type="text" class="form-control" name="cardName" [(ngModel)]="NameCard" id="cardName" placeholder="Full name as displayed on card"
+            maxlength="12" required #NumCard="ngModel">
+          @if (NumCard.invalid && NumCard.touched)
+          {
+            <span class="text-danger">El nombre en la tarjeta es requerido</span>
+          }
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="cardNumber">Credit card number</label>
+          <input type="text" class="form-control" name="cardNumber" [(ngModel)]="CreditCardNumber" id="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX"
+            pattern="\d{4}-\d{4}-\d{4}-\d{4}" required #CardNumber="ngModel">
+          @if (CardNumber.invalid && CardNumber.touched)
+          {
+            <span class="text-danger">El número de tarjeta es requerido</span>
+          }
+        </div>
+
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label for="expiration">Expiration</label>
+          <input type="text" class="form-control" name="expiration" [(ngModel)]="ExpirationDate" id="expiration" placeholder="MMYY" maxlength="4" required
+          #Expired="ngModel">
+          @if (Expired.invalid && Expired.touched)
+          {
+            <span class="text-danger">La fecha de expiración es requerida</span>
+          }
+        </div>
+        <div class="form-group col-md-2">
+          <label for="cvv">CVV</label>
+          <input type="password" class="form-control" name="cvv" [(ngModel)]="CVV" id="cvv" placeholder="CVV" maxlength="3" required
+          #Cv="ngModel">
+          @if (Cv.invalid && Cv.touched)
+          {
+            <span class="text-danger">El CVV es requerido</span>
+          }
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-block" [disabled]="!form.valid">Book now</button>
+    </form>
+  </div>
+</div>
